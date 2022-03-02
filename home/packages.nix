@@ -40,13 +40,13 @@ with pkgs; [
   # ytop
   (pass.withExtensions (ext: with ext; [pass-import]))
   abduco
-  ag
+  # ag
   aria2
   asciidoctor
   asciinema
   autojump
   bash
-  bashCompletion
+  bash-completion
   bashInteractive
   bingrep
   bitwarden-cli
