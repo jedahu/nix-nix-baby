@@ -3,6 +3,7 @@
 {
 
   imports = [
+    (import ./env.nix)
     (import ./programs)
     (import ./modules/project-repos.nix)
   ];
@@ -20,7 +21,7 @@
       max-cache-ttl ${ttl}
       max-cache-ttl-ssh ${ttl}
       allow-emacs-pinentry
-      allow-loopback-pinentry 
+      allow-loopback-pinentry
       pinentry-program ${pkgs.pinentry_mac}/Applications/pinentry-mac.app/Contents/MacOS/pinentry-mac
     '';
 
@@ -37,18 +38,6 @@
   '';
 
   home.packages = import ./packages.nix { inherit pkgs lib; };
-
-  home.sessionVariables = {
-    ALTERNATE_EDITOR = "";
-    EDITOR = "vim";
-    VISUAL = "vim";
-    PAGER = "${pkgs.bat}/bin/bat -p";
-    BAT_PAGER = "${pkgs.less}/bin/less -SR";
-    BASH_ENV = "";
-    XDG_DATA_DIRS = "$HOME/.nix-profile/share";
-    SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
-    GIT_SSL_CAINFO = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
-  };
 
   home.activation = {
     rectangleRemoteControl = lib.hm.dag.entryAfter ["writeBoundary"] ''

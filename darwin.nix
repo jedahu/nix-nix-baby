@@ -214,7 +214,7 @@
       mru-spaces = false;
       show-process-indicators = true;
       show-recents = true;
-      showhidden = true;
+      showhidden = false;
       static-only = false;
     };
     finder = {

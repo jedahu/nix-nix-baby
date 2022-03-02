@@ -9,12 +9,19 @@ let
       };
 
       ".spacemacs".source = ./emacs/dotspacemacs.el;
+
     };
 
     xdg.configFile.spacemacs = {
       recursive = true;
       source = ./emacs/private;
     };
+
+    home.activation.emacsNixEnv = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      cat <<EOF >~/.emacs.d/nix-env-vars
+      ${config.lib.shell.exportAll config.home.sessionVariables}
+      EOF
+    '';
   };
 
   karabiner = {
@@ -39,17 +46,7 @@ let
           "globstar"
           "checkjobs"
         ];
-        profileExtra = ''
-          export GPG_TTY=$(tty)
-          export LESS_TERMCAP_mb=$'\e[1;32m'
-          export LESS_TERMCAP_md=$'\e[1;32m'
-          export LESS_TERMCAP_me=$'\e[0m'
-          export LESS_TERMCAP_se=$'\e[0m'
-          export LESS_TERMCAP_so=$'\e[01;33m'
-          export LESS_TERMCAP_ue=$'\e[0m'
-          export LESS_TERMCAP_us=$'\e[1;4;31m'
-          export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-        '';
+        profileExtra = "";
         initExtra = ''
           . ${pkgs.bash-completion}/share/bash-completion/bash_completion
         '';
