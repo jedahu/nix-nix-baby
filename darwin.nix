@@ -123,6 +123,7 @@
       "iterm2"
       "karabiner-elements"
       "keybase"
+      "launchcontrol"
       "linear-linear"
       "notion"
       "paletro"
@@ -183,6 +184,15 @@
     gid = 20;
     home = "/Users/jal";
     shell = pkgs.bashInteractive;
+  };
+
+  launchd.user.agents.input-sink = {
+    serviceConfig = {
+      Program = "${pkgs.input-sink}/bin/InputSink";
+      StandardErrorPath = "/tmp/InputSink.err.log";
+      StandardOutPath = "/tmp/InputSink.out.log";
+      KeepAlive = true;
+    };
   };
 
   system.defaults = {

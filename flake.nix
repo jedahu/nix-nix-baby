@@ -2,9 +2,11 @@
   description = "Jun's darwin system";
 
   inputs = {
+    pinned.url = "/Users/jal/.config/nix/pinned";
+
     # Package sets
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-21.11-darwin";
-    nixpkgs-unstable.url = github:NixOS/nixpkgs/nixpkgs-unstable;
+    nixpkgs.follows = "pinned/nixpkgs";
+    nixpkgs-unstable.follows = "pinned/nixpkgs-unstable";
     # nixpkgs-with-patched-kitty.url = github:azuwis/nixpkgs/kitty;
 
     # Environment/system management
@@ -15,12 +17,15 @@
 
     # Other sources
     comma = { url = github:Shopify/comma; flake = false; };
-    spacemacs.url = "github:syl20bnr/spacemacs/develop";
-    spacemacs.flake = false;
+    spacemacs = { url = "github:syl20bnr/spacemacs/develop"; flake = false; };
+    input-sink = {
+      url = "/Users/jal/proj/InputSink";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, darwin, nixpkgs, home-manager, ... }@inputs:
-  let 
+  outputs = { self, darwin, nixpkgs, input-sink, home-manager, ... }@inputs:
+  let
 
     inherit (darwin.lib) darwinSystem;
     inherit (inputs.nixpkgs-unstable.lib) attrValues makeOverridable optionalAttrs singleton;
@@ -72,7 +77,8 @@
       # Overlays to add various packages into package set
         comma = final: prev: {
           comma = import inputs.comma { inherit (prev) pkgs; };
-        };  
+          input-sink = inputs.input-sink.defaultPackage.aarch64-darwin;
+        };
 
       # Overlay useful on Macs with Apple Silicon
         apple-silicon = final: prev: optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
