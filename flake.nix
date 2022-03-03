@@ -54,7 +54,7 @@
       Nebula = nebula;
       nebula = darwinSystem {
         system = "aarch64-darwin";
-        modules = attrValues self.darwinModules ++ [ 
+        modules = attrValues self.darwinModules ++ [
           # Main `nix-darwin` config
           ./darwin.nix
           # `home-manager` module
@@ -65,7 +65,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = { inherit (inputs) spacemacs; };
-            home-manager.users.jal = import ./home;            
+            home-manager.users.jal = import ./home;
           }
         ];
       };

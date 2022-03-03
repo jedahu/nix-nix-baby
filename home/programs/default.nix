@@ -1,6 +1,8 @@
 { options, config, lib, spacemacs, pkgs, ... }:
 
 let
+
+
   emacs = {
     home.file = {
       ".emacs.d" = {
@@ -21,13 +23,6 @@ let
       cat <<EOF >~/.emacs.d/nix-env-vars
       ${config.lib.shell.exportAll config.home.sessionVariables}
       EOF
-    '';
-  };
-
-  karabiner = {
-    home.activation.karabinerConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      $DRY_RUN_CMD mkdir -p $HOME/.config/karabiner
-      $DRY_RUN_CMD cp ${./karabiner/karabiner.json} $HOME/.config/karabiner/karabiner.json
     '';
   };
 
@@ -164,9 +159,15 @@ let
     };
   };
 
-in
-  lib.mkMerge [
+
+
+in {
+  imports = [
+    ./karabiner
+  ];
+
+  config = lib.mkMerge [
     emacs
-    karabiner
     simple
-  ]
+  ];
+}

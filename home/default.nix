@@ -3,9 +3,9 @@
 {
 
   imports = [
-    (import ./env.nix)
-    (import ./programs)
-    (import ./modules/project-repos.nix)
+    ./env.nix
+    ./programs
+    ./modules/project-repos.nix
   ];
 
   home.stateVersion = "22.05";
