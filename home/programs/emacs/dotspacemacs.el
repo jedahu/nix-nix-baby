@@ -20,7 +20,7 @@ This function should only modify configuration layer settings."
    ;; installation feature and you have to explicitly list a layer in the
    ;; variable `dotspacemacs-configuration-layers' to install it.
    ;; (default 'unused)
-   dotspacemacs-enable-lazy-installation 'unused
+   dotspacemacs-enable-lazy-installation nil
 
    ;; If non-nil then Spacemacs will ask for confirmation before installing
    ;; a layer lazily. (default t)
@@ -57,6 +57,7 @@ This function should only modify configuration layer settings."
      (javascript :variables
                  javascript-fmt-tool 'prettier)
      (lsp :variables
+          lsp-enable-suggest-server-download nil
           lsp-signature-auto-activate nil
           lsp-ui-doc-enable nil
           lsp-metals-show-implicit-conversions-and-classes nil
