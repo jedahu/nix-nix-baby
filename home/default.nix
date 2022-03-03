@@ -45,6 +45,17 @@
     '';
   };
 
+  launchd.enable = true;
+  launchd.agents.input-sink = {
+    enable = true;
+    config = {
+      Program = "${pkgs.input-sink}/bin/InputSink";
+      StandardErrorPath = "/tmp/InputSink.err.log";
+      StandardOutPath = "/tmp/InputSink.out.log";
+      KeepAlive = true;
+    };
+  };
+
   project-repos = {
     repos = {
       "gc/core" = {
@@ -60,6 +71,9 @@
       };
       "gc/marketing" = {
         uri = "git@github.com:goodcover/marketing.git";
+      };
+      "gc/gc-nix" = {
+        uri = "git@github.com:goodcover/gc-nix.git";
       };
     };
   };

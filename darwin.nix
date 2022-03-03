@@ -186,14 +186,14 @@
     shell = pkgs.bashInteractive;
   };
 
-  launchd.user.agents.input-sink = {
-    serviceConfig = {
-      Program = "${pkgs.input-sink}/bin/InputSink";
-      StandardErrorPath = "/tmp/InputSink.err.log";
-      StandardOutPath = "/tmp/InputSink.out.log";
-      KeepAlive = true;
-    };
-  };
+  # launchd.user.agents.input-sink = {
+  #   serviceConfig = {
+  #     Program = "${pkgs.input-sink}/bin/InputSink";
+  #     StandardErrorPath = "/tmp/InputSink.err.log";
+  #     StandardOutPath = "/tmp/InputSink.out.log";
+  #     KeepAlive = true;
+  #   };
+  # };
 
   system.defaults = {
     NSGlobalDomain = {

@@ -45,11 +45,11 @@
           inherit (final.pkgs-stable) starship;
         })
       );
-    }; 
+    };
   in
   {
     # My `nix-darwin` configs
-      
+
     darwinConfigurations = rec {
       Nebula = nebula;
       nebula = darwinSystem {
@@ -96,13 +96,13 @@
           # Get Apple Silicon version of `kitty`
           # TODO: Remove when https://github.com/NixOS/nixpkgs/pull/137512 lands
           # inherit (inputs.nixpkgs-with-patched-kitty.legacyPackages.aarch64-darwin) kitty;
-        }; 
+        };
       };
 
     # My `nix-darwin` modules that are pending upstream, or patched versions waiting on upstream
     # fixes.
     darwinModules = {
-      programs-nix-index = 
+      programs-nix-index =
         # Additional configuration for `nix-index` to enable `command-not-found` functionality with Fish.
         { config, lib, pkgs, ... }:
 
@@ -120,7 +120,7 @@
             '';
             };
         };
-      security-pam = 
+      security-pam =
         # Upstream PR: https://github.com/LnL7/nix-darwin/pull/228
         { config, lib, pkgs, ... }:
 
